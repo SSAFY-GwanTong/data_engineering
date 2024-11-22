@@ -35,7 +35,7 @@ if not os.path.exists(output_path):
     # area_code와 content_type_id 별로 개수 세기
     grouped = attractions_df.groupby(["area_code", "content_type_id"]).size().reset_index(name="count")
 
-    # 100개 이상인 그룹 필터링
+    # SAMPLE_SIZE개 이상인 그룹 필터링
     large_groups = grouped[grouped["count"] > SAMPLE_SIZE]
 
     # 랜덤 샘플링 결과를 저장할 데이터프레임
