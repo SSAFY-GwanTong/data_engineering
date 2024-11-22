@@ -20,7 +20,7 @@ with open("./files/system_prompt", 'r', encoding='utf-8') as f:
 start_mode = input("새로 시작하시겠습니까? (y/n): ").strip().lower()
 
 # 시작 인덱스 설정
-start_idx = 0
+start_idx = 1  # CSV의 헤더를 건너뛰기 위해 1로 설정
 
 if start_mode == "y":
     # 새로 시작: 결과 파일 초기화
@@ -40,17 +40,19 @@ elif start_mode == "n":
                 if not last_line:  # 공백 줄 확인
                     last_line = lines[-2].strip()
 
-                # 마지막 줄의 attraction_id 추출
-                last_attraction_id = last_line.split(",")[0]
+                # 마지막 줄의 attraction_id 추출 (no는 무시하고 content_id 사용)
+                last_attraction_id = last_line.split(",")[1]
 
                 # "attraction_id"이면 데이터가 없는 상태
                 if last_attraction_id == "attraction_id":
                     print("기존 파일에 데이터가 없습니다. 새로 작업을 시작합니다.")
                 else:
-                    # 전처리된 파일에서 마지막 attraction_id의 인덱스 찾기
+                    # 전처리된 파일에서 마지막 attraction_id(content_id)의 인덱스 찾기
                     with open(filtered_attractions_path, "r", encoding="utf-8") as f_filtered:
                         for idx, line in enumerate(f_filtered):
-                            if line.startswith(last_attraction_id):
+                            if idx < start_idx:  # 헤더는 건너뛰기
+                                continue
+                            if line.split(",")[1] == last_attraction_id:
                                 start_idx = idx + 1  # 다음 인덱스부터 작업
                                 break
     else:
@@ -66,8 +68,8 @@ with open(filtered_attractions_path, "r", encoding="utf-8") as f:
 # tqdm으로 진행 상황 표시
 for idx, line in tqdm(enumerate(filtered_attractions[start_idx:]), total=len(filtered_attractions[start_idx:]), desc="Processing Attractions"):
     parts = line.strip().split(",")
-    attraction_id = parts[0]  # 어트랙션 번호
-    attraction_name = parts[1]  # 어트랙션 이름
+    attraction_id = parts[1]  # content_id 사용
+    attraction_name = parts[2]  # title 사용
 
     try:
         # OpenAI API 호출
