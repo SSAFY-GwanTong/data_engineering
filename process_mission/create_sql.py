@@ -12,10 +12,10 @@ fitness_mapping = {
 }
 
 # CSV 파일 읽기
-df = pd.read_csv("process_course/csv/after_attraction_mission.csv")
+df = pd.read_csv("process_mission/output/after_attraction_mission.csv")
 
 # SQL 파일로 저장
-with open("insert_after_attraction_mission.sql", "w", encoding="utf-8") as sql_file:
+with open("process_mission/output/insert_after_attraction_mission.sql", "w", encoding="utf-8") as sql_file:
     for _, row in df.iterrows():
         attraction_id = row["attraction_id"]
         mission = row["mission"].replace("'", "''")  # SQL Injection 방지
