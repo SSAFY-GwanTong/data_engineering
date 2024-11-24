@@ -1,6 +1,6 @@
 from openai import OpenAI
 
-with open("./key",'r') as f:
+with open("./files/key",'r') as f:
     openkey=f.read()
 client = OpenAI(
     api_key=openkey
