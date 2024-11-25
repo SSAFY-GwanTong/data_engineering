@@ -1,0 +1,72 @@
+4박 5일로 여행계획을 잡을거야.
+너는 내가 제공한 csv의 내용를 토대로 여행계획을 짜줘. csv내용은 맨 아래에 제시할거야.
+
+하루의 여행순서는 점심식사, 활동, 저녁식사, 활동, 숙박이야.
+마지막날은 점심식사와 활동까지만 작성해줘.
+
+
+
+content_type_id는 다음과 같아.
+content_type_id,content_type_name
+12,관광지
+14,문화시설
+15,축제공연행사
+28,레포츠
+38,쇼핑
+
+
+사용자의 체력에 따라 여행코스를 추천해줄거야.
+체력이 아주 적은 사람부터 체력이 아주 많은 사람까지, 모든 사람에 대해서 여행코스를 만들어야해.
+체력에는 총 7가지 요소가 있어. 근력,근지구력,유연성,심폐지구력,민첩성,순발력,평형성
+이중 k개만을 만족하는 사람을 체력 레벨 정의할거야.
+
+예를 들면 심폐지구력만 있는 사람은 레벨 1이라할 수 있지.
+레벨 k는 너가 랜덤을 돌려서 정해.
+체력 1레벨부터 7레벨까지, content_type_id 등을 참고하여 각각에게 적합한 여행을 추천해줘. 그 결과들은 모두 같은 리스트에 담겨있어야해
+
+
+
+
+출력형식을 지정할게.
+
+점심식사와 저녁식사, 숙소는 내가 직접 작성할 거니, 그 부분은 공란으로 둬야해.
+활동에는 너가 정한 attraction의 content_id,title,latitude,longitude 가 담겨있어야해.
+
+4박5일이므로 start와 end 사이에 5일치의 리스트를 작성해야해.
+...은 그 뒤에 내용이 더 이어진다는 뜻이야.  ...으로 출력하지말고 그 뒤의 내용을 구성하도록
+
+아무런 설명이 없어야하며, 반드시 리스트로만 결과를 줘야해. 결과를 받아서
+파이썬 코드에 삽입할 것이기 때문에 반드시 다음의 형식을 지켜줘.
+1. 하나의 여행코스는 아래의 형식과 같아.
+[
+        #start
+        [], # 점심식사
+        [content_id,title,latitude,longitude], # 활동
+        [], # 저녁식사
+        [content_id,title,latitude,longitude], # 활동
+        [], # 숙소
+        [], # 점심식사
+        [content_id,title,latitude,longitude], # 활동
+        [], # 저녁식사
+        [content_id,title,latitude,longitude], # 활동
+        [], # 숙소
+        [], # 점심식사
+        [content_id,title,latitude,longitude], # 활동
+        [], # 저녁식사
+        [content_id,title,latitude,longitude], # 활동
+        [], # 숙소
+        [], # 점심식사
+        [content_id,title,latitude,longitude], # 활동
+        [], # 저녁식사
+        [content_id,title,latitude,longitude], # 활동
+        [], # 숙소
+        [], # 점심식사
+        [content_id,title,latitude,longitude], # 활동
+        #end
+]
+
+2. 너는 이것을 체력레벨에 따라, 3개씩 생성하여 하나의 리트트에 담아야해.
+
+
+
+내가 제시하는 csv내용은 아래와 같아.
